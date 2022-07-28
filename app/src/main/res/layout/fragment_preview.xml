@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <import type="com.github.antonpopoff.colorwheel.gradientseekbar.GradientSeekBarKt"/>
+
+        <variable
+            name="viewModel"
+            type="com.colorwheelapp.preview.PreviewViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:background="@color/back_color"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:background="@color/eliment_color"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+            <RelativeLayout
+                android:background="@color/selected_color"
+                android:id="@+id/rl_teal"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/circule_teal"/>
+
+            </RelativeLayout>
+
+              <RelativeLayout
+                android:id="@+id/rl_green"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/circule_green"/>
+
+            </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/rl_orange"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_centerInParent="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/circule_orange"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <com.github.antonpopoff.colorwheel.gradientseekbar.GradientSeekBar
+            android:id="@+id/gradientSeekBar"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            transparentToColor="@{colorWheel.rgb}"
+            alphaListener="@{(alpha) -> viewModel.onColorChanged(valueSeekBar.getArgb(), alpha)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/colorWheel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.55" />
+
+        <com.github.antonpopoff.colorwheel.ColorWheel
+            android:id="@+id/colorWheel"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:padding="16dp"
+            app:layout_constraintWidth_percent="0.8"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/gradientSeekBar"
+            app:layout_constraintBottom_toBottomOf="@id/gradientSeekBar"/>
+
+        <View
+            app:layout_constraintTop_toBottomOf="@id/ll"
+            android:id="@+id/colorIndicator"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            gradientDrawableColor="@{viewModel.indicatorColor}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/colorWheel"
+            app:layout_constraintHeight_percent="0.1"
+            android:background="@android:color/black"/>
+
+        <com.github.antonpopoff.colorwheel.gradientseekbar.GradientSeekBar
+            android:id="@+id/valueSeekBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            blackToColor="@{colorWheel.rgb}"
+            colorListener="@{(color) -> viewModel.onColorChanged(color, GradientSeekBarKt.getCurrentColorAlpha(gradientSeekBar))}"
+            app:gsb_orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@id/colorWheel"
+            app:layout_constraintStart_toStartOf="@id/colorWheel"
+            app:layout_constraintTop_toBottomOf="@id/colorWheel"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
