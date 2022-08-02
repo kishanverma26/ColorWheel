@@ -8,3 +8,5 @@ import androidx.databinding.BindingAdapter
 fun View.bindBackgroundColor(color: Int) {
     (this.background as? GradientDrawable)?.setColor(color)
 }
+
+

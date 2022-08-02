@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="com.github.antonpopoff.colorwheel.gradientseekbar.GradientSeekBarKt"/>
+        <import type="androidx.databinding.adapters.Converters"/>
 
         <variable
             name="viewModel"
@@ -11,8 +13,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:background="@color/back_color"
         android:layout_height="match_parent">
@@ -27,45 +27,56 @@
             app:layout_constraintLeft_toLeftOf="parent">
 
             <RelativeLayout
-                android:background="@color/selected_color"
+                android:onClick="@{(view)-> viewModel.changeselected_pos(0)}"
+                android:background="@{viewModel.selected_pos==0 ?  Converters.convertColorToDrawable(@color/selected_color):Converters.convertColorToDrawable(@color/eliment_color)}"
                 android:id="@+id/rl_teal"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_weight="1">
 
-                <ImageView
-                    android:layout_centerInParent="true"
+                <View
+                    android:id="@+id/view_first"
+                    gradientDrawableColor="@{viewModel.indicatorColor_first}"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/circule_teal"/>
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/black" />
 
             </RelativeLayout>
 
-              <RelativeLayout
+            <RelativeLayout
+                android:background="@{viewModel.selected_pos==1 ?  Converters.convertColorToDrawable(@color/selected_color):Converters.convertColorToDrawable(@color/eliment_color)}"
+                android:onClick="@{(view)-> viewModel.changeselected_pos(1)}"
                 android:id="@+id/rl_green"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_weight="1">
 
-                <ImageView
-                    android:layout_centerInParent="true"
+                <View
+                    android:id="@+id/view_second"
+                    gradientDrawableColor="@{viewModel.indicatorColor_second}"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/circule_green"/>
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/black" />
 
             </RelativeLayout>
 
-        <RelativeLayout
+            <RelativeLayout
+                android:background="@{viewModel.selected_pos==2 ?  Converters.convertColorToDrawable(@color/selected_color):Converters.convertColorToDrawable(@color/eliment_color)}"
+                android:onClick="@{(view)-> viewModel.changeselected_pos(2)}"
                 android:id="@+id/rl_orange"
                 android:layout_width="0dp"
                 android:layout_height="70dp"
                 android:layout_weight="1">
 
-                <ImageView
-                    android:layout_centerInParent="true"
+                <View
+                    android:id="@+id/view_third"
+                    gradientDrawableColor="@{viewModel.indicatorColor_third }"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/circule_orange"/>
+                    android:layout_centerInParent="true"
+                    android:background="@android:color/black" />
 
             </RelativeLayout>
 
@@ -97,6 +108,7 @@
             app:layout_constraintBottom_toBottomOf="@id/gradientSeekBar"/>
 
         <View
+            android:visibility="invisible"
             app:layout_constraintTop_toBottomOf="@id/ll"
             android:id="@+id/colorIndicator"
             android:layout_width="0dp"
